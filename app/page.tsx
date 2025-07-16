@@ -1,4 +1,4 @@
- 'use client'
+'use client'
 
 import React, { useState, createContext, useContext, useEffect,useRef } from 'react';
 import { Home as HomeIcon, Search, Settings } from 'lucide-react';
@@ -14,6 +14,7 @@ import AddToPlaylistModal from '@/components/AddToPlaylistModal';
 import AuthWrapper from '@/components/AuthWrapper';
 import { useAuth } from '@/hooks/useAuth';
 import { useSupabaseData } from '@/hooks/useSupabaseData';
+import { useQueue } from '@/hooks/useQueue';
 import { Song } from '@/types';
 import { useTheme } from '@/components/ThemeContext';
 
@@ -35,6 +36,15 @@ function MusicPlayerContent() {
     recordListeningHistory,
     stopCurrentSongTracking
   } = useSupabaseData(user);
+
+  const {
+    queue,
+    addToQueue,
+    removeFromQueue,
+    getNextSongFromQueue,
+    clearQueue,
+    hasQueue
+  } = useQueue();
 
   const [activeTab, setActiveTab] = useState<'home' | 'search' | 'settings'>('home');
   const [currentPage, setCurrentPage] = useState<'main' | 'playlists' | 'liked'>('main');
@@ -133,6 +143,13 @@ useEffect(() => {
       }
     }
 
+    // Queue songs
+    for (const queueItem of queue) {
+      if (!imageUrls[queueItem.song.id]) {
+        newUrls[queueItem.song.id] = `/api/image-proxy?fileid=${queueItem.song.img_id}`;
+      }
+    }
+
     // Apply if new URLs found
     if (Object.keys(newUrls).length > 0) {
       setImageUrls(prev => ({ ...prev, ...newUrls }));
@@ -140,7 +157,7 @@ useEffect(() => {
   };
 
   fetchImages();
-}, [displayCount, songs, playlists, likedSongs]);
+}, [displayCount, songs, playlists, likedSongs, queue]);
 
 
 
@@ -280,6 +297,23 @@ const handleLoadedMetadata = async () => {
 const handleNext = () => {
   if (!currentSong) return;
 
+  // Check if there's a song in the queue first
+  const nextQueueSong = getNextSongFromQueue();
+  if (nextQueueSong) {
+    setCurrentSong(nextQueueSong);
+    setIsPlaying(true);
+    setLastPlayedSongDismissed(false);
+    recordListeningHistory(nextQueueSong.id);
+
+    // Preload image
+    if (!imageUrls[nextQueueSong.img_id]) {
+      const newUrl = `/api/image-proxy?fileid=${nextQueueSong.img_id}`;
+      setImageUrls(prev => ({ ...prev, [nextQueueSong.img_id]: newUrl }));
+    }
+    return;
+  }
+
+  // If no queue, proceed with normal next song logic
   const currentIndex = songs.findIndex(song => song.id === currentSong.id);
   const nextIndex = currentIndex < songs.length - 1 ? currentIndex + 1 : 0;
   const nextSong = songs[nextIndex];
@@ -313,6 +347,10 @@ const handleNext = () => {
     setShowAddToPlaylistModal(true);
   };
 
+  const handleAddToQueue = (song: Song) => {
+    addToQueue(song);
+  };
+
   const renderContent = () => {
     if (currentPage === 'playlists') {
       return (
@@ -340,6 +378,7 @@ const handleNext = () => {
                 onSongPlay={handleSongPlay}
                 formatNumber={formatNumber}
                 onAddToPlaylist={handleAddToPlaylist}
+                onAddToQueue={handleAddToQueue}
                 imageUrls={imageUrls}
                 onLoadMore={loadMoreSongs}
                 hasMoreSongs={displayCount < songs.length}
@@ -350,6 +389,7 @@ const handleNext = () => {
               onSongPlay={handleSongPlay}
               formatNumber={formatNumber}
               onAddToPlaylist={handleAddToPlaylist}
+              onAddToQueue={handleAddToQueue}
               imageUrls={imageUrls}
               setImageUrls={setImageUrls}
             />;
@@ -361,6 +401,7 @@ const handleNext = () => {
               onSongPlay={handleSongPlay}
               formatNumber={formatNumber}
               onAddToPlaylist={handleAddToPlaylist}
+              onAddToQueue={handleAddToQueue}
               imageUrls={imageUrls}
               onLoadMore={loadMoreSongs}
               hasMoreSongs={displayCount < songs.length}
@@ -372,6 +413,18 @@ const handleNext = () => {
     ? 'bg-gray-900 text-white' 
     : 'bg-gray-50 text-gray-900';
 const setCurrentTimeState = setCurrentTime;
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className={`min-h-screen ${themeClasses} flex items-center justify-center`}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500 mx-auto mb-4"></div>
+          <p className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>Loading your music...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     
@@ -466,6 +519,10 @@ const setCurrentTimeState = setCurrentTime;
                 setVolume={setVolume}
                 isSeeking={isSeeking}
                 setIsSeeking={setIsSeeking}
+                queue={queue}
+                onRemoveFromQueue={removeFromQueue}
+                onSongPlay={handleSongPlay}
+                imageUrls={imageUrls}
               />
             )}
           </>

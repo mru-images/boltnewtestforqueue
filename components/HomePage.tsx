@@ -13,13 +13,14 @@ interface HomePageProps {
   onSongPlay: (song: Song) => void;
   formatNumber: (num: number) => string;
   onAddToPlaylist: (song: Song) => void;
+  onAddToQueue: (song: Song) => void;
   imageUrls: Record<string, string>;  // NEW
   onLoadMore: () => void;             // NEW
   hasMoreSongs: boolean;              // NEW
 }
 
 
-const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, onAddToPlaylist,imageUrls,onLoadMore,hasMoreSongs }) => {
+const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, onAddToPlaylist, onAddToQueue, imageUrls,onLoadMore,hasMoreSongs }) => {
   const { isDarkMode } = useTheme();
   const { user } = useAuth();
   
@@ -98,6 +99,7 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
                 onPlay={onSongPlay}
                 formatNumber={formatNumber}
                 onAddToPlaylist={onAddToPlaylist}
+                onAddToQueue={onAddToQueue}
                 cachedImageUrl={imageUrls[song.id]}
               />
             ))}
