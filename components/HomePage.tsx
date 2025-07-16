@@ -80,6 +80,7 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
                 onPlay={onSongPlay}
                 formatNumber={formatNumber}
                 cachedImageUrl={imageUrls[song.id]}
+                onAddToQueue={onAddToQueue}
               />
             ))}
           </div>

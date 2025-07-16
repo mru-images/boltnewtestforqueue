@@ -73,29 +73,41 @@ const SongCard: React.FC<SongCardProps> = ({
         {showRemoveButton && onRemove && (
           <button 
             onClick={(e) => handleButtonClick(e, onRemove)}
-            className={`p-1 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors text-red-400 hover:text-red-300`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors text-red-400 hover:text-red-300`}
           >
-            <X size={16} />
+            <X size={18} />
           </button>
         )}
         {onAddToPlaylist && (
           <button 
             onClick={(e) => handleButtonClick(e, () => onAddToPlaylist(song))}
-            className={`p-1 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors`}
           >
-            <Plus size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+            <Plus size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
           </button>
         )}
+        
+        {/* Mobile-friendly Add to Queue Button */}
+        {onAddToQueue && (
+          <button 
+            onClick={(e) => handleButtonClick(e, () => onAddToQueue(song))}
+            className={`p-2 ${isDarkMode ? 'bg-purple-600 hover:bg-purple-700' : 'bg-purple-500 hover:bg-purple-600'} rounded-full transition-colors shadow-lg`}
+            title="Add to Queue"
+          >
+            <ListPlus size={18} className="text-white" />
+          </button>
+        )}
+        
         <div className="relative">
           <button 
             onClick={(e) => handleButtonClick(e, () => setShowMenu(!showMenu))}
-            className={`p-1 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-200'} rounded-full transition-colors`}
           >
-            <MoreHorizontal size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+            <MoreHorizontal size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
           </button>
           
           {showMenu && (
-            <div className={`absolute right-0 top-8 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg shadow-lg py-2 w-40 z-20`}>
+            <div className={`absolute right-0 top-10 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-xl shadow-xl py-3 w-48 z-20`}>
               {onAddToQueue && (
                 <button
                   onClick={(e) => {
@@ -104,9 +116,9 @@ const SongCard: React.FC<SongCardProps> = ({
                       setShowMenu(false);
                     });
                   }}
-                  className={`w-full text-left px-4 py-2 ${isDarkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-100 text-gray-900'} flex items-center transition-colors`}
+                  className={`w-full text-left px-4 py-3 ${isDarkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-100 text-gray-900'} flex items-center transition-colors text-sm font-medium`}
                 >
-                  <ListPlus size={16} className="mr-3" />
+                  <ListPlus size={18} className="mr-3 text-purple-400" />
                   Add to Queue
                 </button>
               )}

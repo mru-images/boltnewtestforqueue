@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Heart, Eye } from 'lucide-react';
+import { Play, Heart, Eye, ListPlus } from 'lucide-react';
 import { Song } from '@/types';
 import { useTheme } from '@/components/ThemeContext';
 
@@ -8,17 +8,25 @@ interface TrendingSongProps {
   onPlay: (song: Song) => void;
   formatNumber: (num: number) => string;
   cachedImageUrl: string;
+  onAddToQueue?: (song: Song) => void;
 }
 
-const TrendingSong: React.FC<TrendingSongProps> = ({ song, onPlay, formatNumber,cachedImageUrl }) => {
+const TrendingSong: React.FC<TrendingSongProps> = ({ song, onPlay, formatNumber, cachedImageUrl, onAddToQueue }) => {
   const { isDarkMode } = useTheme();
 
   const handleClick = () => {
     onPlay(song);
   };
 
+  const handleAddToQueue = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (onAddToQueue) {
+      onAddToQueue(song);
+    }
+  };
+
   return (
-    <div className="flex-shrink-0 w-40 group cursor-pointer" onClick={handleClick}>
+    <div className="flex-shrink-0 w-40 group cursor-pointer relative" onClick={handleClick}>
       <div className="relative mb-2">
         <img
          src={cachedImageUrl}
@@ -31,6 +39,19 @@ const TrendingSong: React.FC<TrendingSongProps> = ({ song, onPlay, formatNumber,
         <div className="absolute top-2 right-2 bg-black/70 rounded-full p-1">
           <Heart size={16} className={`${song.isLiked ? 'text-red-500 fill-red-500' : 'text-white'}`} />
         </div>
+        
+        {/* Add to Queue Button */}
+        {onAddToQueue && (
+          <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button
+              onClick={handleAddToQueue}
+              className="bg-purple-500 hover:bg-purple-600 rounded-full p-2 shadow-lg transition-colors"
+              title="Add to Queue"
+            >
+              <ListPlus size={14} className="text-white" />
+            </button>
+          </div>
+        )}
       </div>
       
       <div>

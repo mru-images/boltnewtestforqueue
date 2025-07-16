@@ -276,12 +276,14 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
         </div>
           {/* Queue Section */}
           {queue.length > 0 && onRemoveFromQueue && onSongPlay && (
-            <QueueSection
-              queue={queue}
-              onRemoveFromQueue={onRemoveFromQueue}
-              onSongPlay={onSongPlay}
-              imageUrls={imageUrls}
-            />
+            <div className="mt-6 pt-6 border-t border-gray-700/30">
+              <QueueSection
+                queue={queue}
+                onRemoveFromQueue={onRemoveFromQueue}
+                onSongPlay={onSongPlay}
+                imageUrls={imageUrls}
+              />
+            </div>
           )}
       </div>
     </div>
