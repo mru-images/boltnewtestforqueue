@@ -441,7 +441,9 @@ try {
     const loadData = async () => {
       setLoading(true)
       try {
-        await Promise.all([fetchSongs(), fetchPlaylists()])
+        if (user) {
+          await Promise.all([fetchSongs(), fetchPlaylists()])
+        }
       } catch (error) {
         console.error('Error loading data:', error)
       } finally {
@@ -449,15 +451,15 @@ try {
       }
     }
 
-    if (user) {
-      loadData()
-    } else {
+    loadData()
+    
+    // Reset data when user logs out
+    if (!user) {
       // Reset data when user logs out
       setSongs([])
       setPlaylists([])
       setLikedSongs(new Set())
       setLastPlayedSong(null)
-      setLoading(false)
     }
   }, [user])
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ChevronDown, MoreHorizontal, Heart, Share2, Play, Pause, SkipBack, SkipForward, Volume2, Repeat, Shuffle, Plus, Eye } from 'lucide-react';
 import { Song } from '@/types';
 import { useTheme } from '@/components/ThemeContext';
+import QueueSection from './QueueSection';
+import { QueueItem } from '@/hooks/useQueue';
 
 interface MaximizedPlayerProps {
   song: Song;
@@ -21,6 +23,10 @@ interface MaximizedPlayerProps {
   setVolume: (volume: number) => void;
   isSeeking: boolean;
 setIsSeeking: (value: boolean) => void;
+  queue?: QueueItem[];
+  onRemoveFromQueue?: (itemId: string) => void;
+  onSongPlay?: (song: Song) => void;
+  imageUrls?: Record<string, string>;
 
 }
 
@@ -41,7 +47,11 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
   volume,
   setVolume,
   setIsSeeking,
-  isSeeking
+  isSeeking,
+  queue = [],
+  onRemoveFromQueue,
+  onSongPlay,
+  imageUrls = {}
 }) => {
   const { isDarkMode } = useTheme();
   const [showMenu, setShowMenu] = useState(false);
@@ -264,6 +274,15 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
             </div>
           </div>
         </div>
+          {/* Queue Section */}
+          {queue.length > 0 && onRemoveFromQueue && onSongPlay && (
+            <QueueSection
+              queue={queue}
+              onRemoveFromQueue={onRemoveFromQueue}
+              onSongPlay={onSongPlay}
+              imageUrls={imageUrls}
+            />
+          )}
       </div>
     </div>
   );
