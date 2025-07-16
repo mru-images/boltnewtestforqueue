@@ -39,13 +39,13 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
       {/* Header */}
-      <div className={`sticky top-0 ${isDarkMode ? 'bg-gray-900/95' : 'bg-gray-50/95'} backdrop-blur-md z-10 px-4 py-4`}>
+      <div className={`sticky top-0 ${isDarkMode ? 'bg-gray-900/95' : 'bg-gray-50/95'} backdrop-blur-md z-10 px-4 py-4 safe-top`}>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-2xl font-bold">Good evening</h1>
-            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>What do you want to listen to?</p>
+            <h1 className="text-xl sm:text-2xl font-bold">Good evening</h1>
+            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-xs sm:text-sm`}>What do you want to listen to?</p>
           </div>
-          <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center overflow-hidden">
             {user?.user_metadata?.avatar_url ? (
               <img 
                 src={user.user_metadata.avatar_url} 
@@ -54,7 +54,7 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                <Music size={20} className="text-white" />
+                <Music size={18} className="text-white" />
               </div>
             )}
           </div>
@@ -62,17 +62,17 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
       </div>
 
       {/* Content */}
-      <div className="px-4 pb-4">
+      <div className="px-4 pb-4 safe-bottom">
         {/* Trending Section */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold flex items-center">
-              <TrendingUp className="mr-2 text-purple-400" size={20} />
+            <h2 className="text-lg sm:text-xl font-semibold flex items-center">
+              <TrendingUp className="mr-2 text-purple-400" size={18} />
               Trending Now
             </h2>
-            <button className="text-purple-400 text-sm font-medium">See all</button>
+            <button className="text-purple-400 text-xs sm:text-sm font-medium min-h-[44px] flex items-center">See all</button>
           </div>
-          <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex space-x-3 sm:space-x-4 overflow-x-auto pb-2 scrollbar-hide mobile-scroll">
             {songs.slice(0, 10).map((song) => (
               <TrendingSong 
                 key={song.id}
@@ -88,10 +88,10 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
         {/* Recommendations Section */}
         <div>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Made for you</h2>
-            <button className="text-purple-400 text-sm font-medium">See all</button>
+            <h2 className="text-lg sm:text-xl font-semibold">Made for you</h2>
+            <button className="text-purple-400 text-xs sm:text-sm font-medium min-h-[44px] flex items-center">See all</button>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {songs.map((song) => (
               <SongCard
                 key={song.id}
@@ -107,15 +107,15 @@ const HomePage: React.FC<HomePageProps> = ({ songs, onSongPlay, formatNumber, on
           
           {/* Load More Button */}
           {hasMoreSongs && (
-  <div className="flex justify-center mt-6">
+  <div className="flex justify-center mt-4 sm:mt-6">
     <button
       onClick={onLoadMore}
       className={`flex items-center space-x-2 px-6 py-3 ${
-        isDarkMode ? 'bg-gray-800 hover:bg-gray-700 border-gray-700' : 'bg-white hover:bg-gray-50 border-gray-200'
-      } border rounded-full transition-colors`}
+        isDarkMode ? 'bg-gray-800 active:bg-gray-700 border-gray-700' : 'bg-white active:bg-gray-50 border-gray-200'
+      } border rounded-full transition-colors min-h-[44px]`}
     >
-      <Plus size={18} className="text-purple-400" />
-      <span className={isDarkMode ? 'text-white' : 'text-gray-900'}>Load More</span>
+      <Plus size={16} className="text-purple-400" />
+      <span className={`${isDarkMode ? 'text-white' : 'text-gray-900'} text-sm sm:text-base`}>Load More</span>
     </button>
   </div>
 )}

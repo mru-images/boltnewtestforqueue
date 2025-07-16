@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Smaller base font for mobile */
+  }
+}
+
 /* Custom scrollbar styles */
 .scrollbar-hide {
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -30,12 +37,34 @@
 /* Ensure body has no scrollbar */
 body {
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+  -webkit-touch-callout: none; /* Disable callout on mobile */
+  user-select: none; /* Prevent text selection */
 }
 
-/* Custom mobile styles */
+/* Enhanced mobile styles */
 @media (max-width: 768px) {
   .mobile-only {
     display: block;
+  }
+  
+  /* Better touch targets */
+  button, .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improved scrolling */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Better input handling */
+  input, textarea {
+    font-size: 16px; /* Prevent zoom on iOS */
+    -webkit-appearance: none;
+    border-radius: 0;
   }
 }
 
@@ -51,9 +80,49 @@ body {
 
 /* Custom button styles */
 .btn-primary {
-  @apply bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-full font-medium transition-colors;
+  @apply bg-purple-500 active:bg-purple-700 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium transition-colors min-h-[44px] flex items-center justify-center;
 }
 
 .btn-secondary {
-  @apply bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-full font-medium transition-colors;
+  @apply bg-gray-700 active:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-medium transition-colors min-h-[44px] flex items-center justify-center;
+}
+
+/* Mobile-optimized components */
+.mobile-card {
+  @apply p-3 rounded-lg transition-all active:scale-95;
+}
+
+.mobile-button {
+  @apply p-3 rounded-full transition-all active:scale-95 min-h-[44px] min-w-[44px] flex items-center justify-center;
+}
+
+.mobile-input {
+  @apply py-3 px-4 text-base rounded-lg border focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all;
+}
+
+/* Safe area handling for mobile */
+@supports (padding: max(0px)) {
+  .safe-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Mobile-specific animations */
+@keyframes mobileSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.mobile-slide-up {
+  animation: mobileSlideUp 0.3s ease-out;
 }
