@@ -46,7 +46,7 @@ const MinimizedPlayer: React.FC<MinimizedPlayerProps> = ({
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className={`fixed bottom-16 sm:bottom-20 left-0 right-0 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t z-40 shadow-lg safe-bottom`}>
+    <div className={`fixed bottom-20 left-0 right-0 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t z-40 shadow-lg`}>
       {/* Progress Bar */}
       <div className={`w-full h-1 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'}`}>
       <div
@@ -56,17 +56,17 @@ const MinimizedPlayer: React.FC<MinimizedPlayerProps> = ({
     </div>
 
       
-      <div className="flex items-center justify-between p-3 sm:p-4">
+      <div className="flex items-center justify-between p-3">
         {/* Song Info - Clickable to maximize */}
         <div className="flex items-center flex-1 min-w-0 cursor-pointer" onClick={onMaximize}>
           <img
             src={imageUrl || song.image}
             alt={song.name}
-            className="w-11 h-11 sm:w-12 sm:h-12 rounded-lg object-cover mr-3 flex-shrink-0"
+            className="w-12 h-12 rounded-lg object-cover mr-3 flex-shrink-0"
           />
           
           <div className="flex-1 min-w-0">
-            <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'} truncate text-sm sm:text-base`}>{song.name}</h3>
+            <h3 className={`font-medium ${isDarkMode ? 'text-white' : 'text-gray-900'} truncate text-sm`}>{song.name}</h3>
             <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-xs truncate`}>{song.artist}</p>
           </div>
         </div>
@@ -74,24 +74,24 @@ const MinimizedPlayer: React.FC<MinimizedPlayerProps> = ({
         {/* Like Button */}
         <button 
           onClick={handleLike}
-          className={`mobile-button p-2 ${isDarkMode ? 'active:bg-gray-700' : 'active:bg-gray-100'} rounded-full transition-colors mr-1 sm:mr-2`}
+          className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full transition-colors mr-2`}
         >
           <Heart 
-            size={18} 
+            size={16} 
             className={`transition-colors ${song.isLiked ? 'text-red-500 fill-red-500' : isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} 
           />
         </button>
         
         {/* Controls */}
-        <div className="flex items-center space-x-1 sm:space-x-2">
+        <div className="flex items-center space-x-1">
           <button 
             onClick={(e) => {
               e.stopPropagation();
               onPrevious();
             }}
-            className={`mobile-button p-2 ${isDarkMode ? 'active:bg-gray-700' : 'active:bg-gray-100'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full transition-colors`}
           >
-            <SkipBack size={20} className={isDarkMode ? 'text-gray-300' : 'text-gray-700'} />
+            <SkipBack size={18} className={isDarkMode ? 'text-gray-300' : 'text-gray-700'} />
           </button>
           
           <button
@@ -99,12 +99,12 @@ const MinimizedPlayer: React.FC<MinimizedPlayerProps> = ({
               e.stopPropagation();
               onTogglePlay();
             }}
-            className={`mobile-button p-2 ${isDarkMode ? 'active:bg-gray-700' : 'active:bg-gray-100'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full transition-colors`}
           >
             {isPlaying ? (
-              <Pause size={22} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
+              <Pause size={20} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
             ) : (
-              <Play size={22} className={isDarkMode ? 'text-white' : 'text-gray-900'} fill={isDarkMode ? 'white' : '#111827'} />
+              <Play size={20} className={isDarkMode ? 'text-white' : 'text-gray-900'} fill={isDarkMode ? 'white' : '#111827'} />
             )}
           </button>
           
@@ -113,15 +113,15 @@ const MinimizedPlayer: React.FC<MinimizedPlayerProps> = ({
               e.stopPropagation();
               onNext();
             }}
-            className={`mobile-button p-2 ${isDarkMode ? 'active:bg-gray-700' : 'active:bg-gray-100'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full transition-colors`}
           >
-            <SkipForward size={20} className={isDarkMode ? 'text-gray-300' : 'text-gray-700'} />
+            <SkipForward size={18} className={isDarkMode ? 'text-gray-300' : 'text-gray-700'} />
           </button>
           
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className={`mobile-button p-2 ${isDarkMode ? 'active:bg-gray-700' : 'active:bg-gray-100'} rounded-full transition-colors ml-1`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} rounded-full transition-colors ml-1`}
           >
             <X size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
           </button>

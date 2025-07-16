@@ -436,34 +436,34 @@ const setCurrentTimeState = setCurrentTime;
 
         {/* Bottom Navigation */}
         {currentPage === 'main' && (
-          <div className={`fixed bottom-0 left-0 right-0 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t z-30 safe-bottom`}>
-            <div className="flex items-center justify-around py-2 sm:py-3">
+          <div className={`fixed bottom-0 left-0 right-0 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t z-30`}>
+            <div className="flex items-center justify-around py-3">
               <button
                 onClick={() => setActiveTab('home')}
-                className={`flex flex-col items-center space-y-1 p-2 transition-colors min-h-[44px] justify-center ${
+                className={`flex flex-col items-center space-y-1 p-2 transition-colors ${
                   activeTab === 'home' ? 'text-purple-400' : isDarkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}
               >
-                <HomeIcon size={22} />
-                <span className="text-xs sm:text-sm">Home</span>
+                <HomeIcon size={24} />
+                <span className="text-xs">Home</span>
               </button>
               <button
                 onClick={() => setActiveTab('search')}
-                className={`flex flex-col items-center space-y-1 p-2 transition-colors min-h-[44px] justify-center ${
+                className={`flex flex-col items-center space-y-1 p-2 transition-colors ${
                   activeTab === 'search' ? 'text-purple-400' : isDarkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}
               >
-                <Search size={22} />
-                <span className="text-xs sm:text-sm">Search</span>
+                <Search size={24} />
+                <span className="text-xs">Search</span>
               </button>
               <button
                 onClick={() => setActiveTab('settings')}
-                className={`flex flex-col items-center space-y-1 p-2 transition-colors min-h-[44px] justify-center ${
+                className={`flex flex-col items-center space-y-1 p-2 transition-colors ${
                   activeTab === 'settings' ? 'text-purple-400' : isDarkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}
               >
-                <Settings size={22} />
-                <span className="text-xs sm:text-sm">Settings</span>
+                <Settings size={24} />
+                <span className="text-xs">Settings</span>
               </button>
             </div>
           </div>

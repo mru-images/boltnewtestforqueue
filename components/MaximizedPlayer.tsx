@@ -73,42 +73,42 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
   };
 
   return (
-    <div className={`fixed inset-0 ${isDarkMode ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black' : 'bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200'} z-50 flex flex-col safe-top safe-bottom`}>
+    <div className={`fixed inset-0 ${isDarkMode ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-black' : 'bg-gradient-to-b from-gray-50 via-gray-100 to-gray-200'} z-50 flex flex-col`}>
       {/* Header - Fixed */}
-      <div className="flex items-center justify-between p-4 pt-8 sm:pt-12 flex-shrink-0">
+      <div className="flex items-center justify-between p-4 pt-12 flex-shrink-0">
         <button 
           onClick={onMinimize} 
-          className={`mobile-button p-3 ${isDarkMode ? 'active:bg-gray-800' : 'active:bg-gray-200'} rounded-full transition-colors`}
+          className={`p-2 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}
         >
-          <ChevronDown size={26} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
+          <ChevronDown size={24} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
         </button>
         <div className="text-center flex-1">
-          <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-xs sm:text-sm`}>Playing from</p>
-          <p className={`${isDarkMode ? 'text-white' : 'text-gray-900'} font-medium text-sm sm:text-base`}>Trending Now</p>
+          <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>Playing from</p>
+          <p className={`${isDarkMode ? 'text-white' : 'text-gray-900'} font-medium`}>Trending Now</p>
         </div>
         <div className="relative">
           <button 
             onClick={() => setShowMenu(!showMenu)}
-            className={`mobile-button p-3 ${isDarkMode ? 'active:bg-gray-800' : 'active:bg-gray-200'} rounded-full transition-colors`}
+            className={`p-2 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}
           >
-            <MoreHorizontal size={26} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
+            <MoreHorizontal size={24} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
           </button>
           
           {/* Dropdown Menu */}
           {showMenu && (
-            <div className={`absolute right-0 top-14 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg shadow-lg py-2 w-48 z-10 mobile-slide-up`}>
+            <div className={`absolute right-0 top-12 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-lg shadow-lg py-2 w-48 z-10`}>
               <button 
                 onClick={() => {
                   onAddToPlaylist();
                   setShowMenu(false);
                 }}
-                className={`w-full text-left px-4 py-3 ${isDarkMode ? 'active:bg-gray-700 text-white' : 'active:bg-gray-100 text-gray-900'} flex items-center transition-colors min-h-[44px]`}
+                className={`w-full text-left px-4 py-2 ${isDarkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-100 text-gray-900'} flex items-center transition-colors`}
               >
-                <Plus size={18} className="mr-3" />
+                <Plus size={16} className="mr-3" />
                 Add to Playlist
               </button>
-              <button className={`w-full text-left px-4 py-3 ${isDarkMode ? 'active:bg-gray-700 text-white' : 'active:bg-gray-100 text-gray-900'} flex items-center transition-colors min-h-[44px]`}>
-                <Share2 size={18} className="mr-3" />
+              <button className={`w-full text-left px-4 py-2 ${isDarkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-100 text-gray-900'} flex items-center transition-colors`}>
+                <Share2 size={16} className="mr-3" />
                 Share
               </button>
             </div>
@@ -117,48 +117,48 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
       </div>
 
       {/* Scrollable Content Area - Properly contained */}
-      <div className="flex-1 overflow-y-auto px-4 mobile-scroll">
+      <div className="flex-1 overflow-y-auto px-4">
         <div className="max-h-full">
           {/* Album Art - Smaller and centered */}
-          <div className="flex justify-center py-4 sm:py-6">
-            <div className="relative w-64 h-64 sm:w-72 sm:h-72">
+          <div className="flex justify-center py-6">
+            <div className="relative w-56 h-56">
               <img
                 src={imageUrl || song.image}
                 alt={song.name}
-                className="w-full h-full rounded-xl sm:rounded-2xl object-cover shadow-2xl"
+                className="w-full h-full rounded-2xl object-cover shadow-2xl"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl sm:rounded-2xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl"></div>
             </div>
           </div>
 
           {/* Song Info */}
-          <div className="text-center mb-4 sm:mb-6 px-4">
-            <h1 className={`text-xl sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2 leading-tight`}>{song.name}</h1>
-            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-base sm:text-lg`}>{song.artist}</p>
+          <div className="text-center mb-6">
+            <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>{song.name}</h1>
+            <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-lg`}>{song.artist}</p>
             <div className="flex items-center justify-center space-x-2 mt-2">
-              <span className={`${isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'} text-xs sm:text-sm px-3 py-1 rounded-full`}>
+              <span className={`${isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-600'} text-sm px-3 py-1 rounded-full`}>
                 {song.language}
               </span>
             </div>
           </div>
 
           {/* Stats */}
-          <div className="mb-4 sm:mb-6">
+          <div className="mb-6">
             <div className="flex items-center justify-center space-x-6">
               <div className="flex items-center space-x-1">
-                <Eye size={14} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
-                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-xs sm:text-sm`}>{formatNumber(song.views)}</span>
+                <Eye size={16} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>{formatNumber(song.views)}</span>
               </div>
               <div className="flex items-center space-x-1">
-                <Heart size={14} className={`${song.isLiked ? 'text-red-500 fill-red-500' : isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
-                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-xs sm:text-sm`}>{formatNumber(song.likes)}</span>
+                <Heart size={16} className={`${song.isLiked ? 'text-red-500 fill-red-500' : isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
+                <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-sm`}>{formatNumber(song.likes)}</span>
               </div>
             </div>
           </div>
 
                       {/* Progress Bar with Time */}
-          <div className="mb-6 sm:mb-8 px-2">
-            <div className="flex items-center justify-between text-xs sm:text-sm font-mono mb-3">
+          <div className="mb-8">
+            <div className="flex items-center justify-between text-sm font-mono mb-2">
               <span className={isDarkMode ? 'text-gray-400' : 'text-gray-600'}>
                 {formatTime(currentTime)}
               </span>
@@ -204,61 +204,61 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
 
 
           {/* Main Controls */}
-          <div className="mb-6 sm:mb-8">
-            <div className="flex items-center justify-center space-x-4 sm:space-x-6">
+          <div className="mb-8">
+            <div className="flex items-center justify-center space-x-6">
               <button className={`p-2 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}>
-                <Shuffle size={22} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+                <Shuffle size={24} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
               </button>
               
               <button 
                 onClick={onPrevious}
-                className={`mobile-button p-3 ${isDarkMode ? 'active:bg-gray-800' : 'active:bg-gray-200'} rounded-full transition-colors`}
+                className={`p-3 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}
               >
-                <SkipBack size={26} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
+                <SkipBack size={28} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
               </button>
               
               <button
                 onClick={onTogglePlay}
-                className="mobile-button p-4 bg-purple-500 active:bg-purple-700 rounded-full transition-colors shadow-lg"
+                className="p-4 bg-purple-500 hover:bg-purple-600 rounded-full transition-colors shadow-lg"
               >
                 {isPlaying ? (
-                  <Pause size={30} className="text-white" />
+                  <Pause size={32} className="text-white" />
                 ) : (
-                  <Play size={30} className="text-white" fill="white" />
+                  <Play size={32} className="text-white" fill="white" />
                 )}
               </button>
               
               <button 
                 onClick={onNext}
-                className={`mobile-button p-3 ${isDarkMode ? 'active:bg-gray-800' : 'active:bg-gray-200'} rounded-full transition-colors`}
+                className={`p-3 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}
               >
-                <SkipForward size={26} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
+                <SkipForward size={28} className={isDarkMode ? 'text-white' : 'text-gray-900'} />
               </button>
               
               <button className={`p-2 ${isDarkMode ? 'hover:bg-gray-800' : 'hover:bg-gray-200'} rounded-full transition-colors`}>
-                <Repeat size={22} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+                <Repeat size={24} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
               </button>
             </div>
           </div>
 
           {/* Bottom Section with Like Button and Volume - Final section */}
-          <div className="pb-6 sm:pb-8 px-2">
-            <div className="flex items-center justify-between space-x-4">
+          <div className="pb-8">
+            <div className="flex items-center justify-between">
               {/* Like Button - Bottom Left */}
               <button 
                 onClick={handleLike}
-                className={`flex items-center space-x-2 px-4 py-3 ${song.isLiked ? 'bg-red-500 active:bg-red-700' : isDarkMode ? 'bg-gray-700 active:bg-gray-600' : 'bg-gray-200 active:bg-gray-300'} rounded-full transition-colors min-h-[44px]`}
+                className={`flex items-center space-x-2 px-4 py-2 ${song.isLiked ? 'bg-red-500 hover:bg-red-600' : isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'} rounded-full transition-colors`}
               >
-                <Heart size={16} className={`${song.isLiked ? 'text-white fill-white' : isDarkMode ? 'text-gray-300' : 'text-gray-700'}`} />
-                <span className={`text-xs sm:text-sm font-medium ${song.isLiked ? 'text-white' : isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                <Heart size={18} className={`${song.isLiked ? 'text-white fill-white' : isDarkMode ? 'text-gray-300' : 'text-gray-700'}`} />
+                <span className={`text-sm font-medium ${song.isLiked ? 'text-white' : isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                   {song.isLiked ? 'Liked' : 'Like'}
                 </span>
               </button>
               
               {/* Volume Control */}
               {/* Volume Control */}
-              <div className="flex items-center space-x-2 sm:space-x-3 flex-1 max-w-28 sm:max-w-32">
-                <Volume2 size={18} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
+              <div className="flex items-center space-x-3 flex-1 max-w-32 ml-6">
+                <Volume2 size={20} className={isDarkMode ? 'text-gray-400' : 'text-gray-600'} />
                 <input
                   type="range"
                   min={0}
@@ -266,7 +266,7 @@ const MaximizedPlayer: React.FC<MaximizedPlayerProps> = ({
                   step={0.01}
                   value={volume}
                   onChange={(e) => setVolume(Number(e.target.value))}
-                  className="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer mobile-input"
+                  className="w-full h-2 bg-gray-300 rounded-full appearance-none cursor-pointer"
                   style={{ accentColor: '#a855f7' }}
                 />
               </div>
